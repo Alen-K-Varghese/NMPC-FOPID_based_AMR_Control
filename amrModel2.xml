@@ -1,0 +1,72 @@
+<mujoco model="amrModel2">
+
+    <compiler angle="radian" coordinate="local"/>
+    <option gravity="0 0 -9.81"/>
+
+    <default>
+        <geom rgba="0.6 0.6 0.6 1" friction="1.5 0.2 0.2"/>
+        <joint damping="1"/>
+    </default>
+
+    <worldbody>
+        <geom name="ground" type="plane" size="5 5 0.1" rgba="0.8 0.8 0.8 1"/>
+        <!-- Base -->
+        <body name="base" pos="0 0 0.1">
+            <joint name="base_free" type="free"/>
+            <inertial pos="0 0 0" mass="10" diaginertia="0.5 0.5 0.5"/>
+            <geom type="box" size="0.3 0.2 0.1" rgba="0 0 1 1" />
+
+            <!-- Lidar -->
+            <body name="lidar" pos="0.15 0 0.125">
+                
+                <geom type="cylinder" size="0.07 0.025" />
+            </body>
+
+            <!-- ================= LEFT SIDE ================= -->
+
+            <!-- Front Left Wheel -->
+            <body name="wheel_fl" pos="-0.2 0.2125 -.05">
+                <inertial pos="0 0 0" mass="1" diaginertia="0.01 0.01 0.01"/>
+                <joint name="joint_fl" type="hinge" axis="0 1 0"/>
+                <geom type="cylinder" size="0.1 0.025" euler="1.57 0 0" friction="2 0.1 0.1"/>
+            </body>
+
+            <!-- Rear Left Wheel -->
+            <body name="wheel_rl" pos="0.2 0.2125 -.05">
+                <inertial pos="0 0 0" mass="1" diaginertia="0.01 0.01 0.01"/>
+                <joint name="joint_rl" type="hinge" axis="0 1 0"/>
+                <geom type="cylinder" size="0.1 0.025" euler="1.57 0 0" friction="2 0.1 0.1"/>
+            </body>
+
+            <!-- ================= RIGHT SIDE ================= -->
+
+            <!-- Front Right Wheel -->
+            <body name="wheel_fr" pos="-0.2 -0.2125 -.05">
+                <inertial pos="0 0 0" mass="1" diaginertia="0.01 0.01 0.01"/>
+                <joint name="joint_fr" type="hinge" axis="0 1 0"/>
+                <geom type="cylinder" size="0.1 0.025" euler="1.57 0 0" friction="2 0.1 0.1"/>
+            </body>
+
+            <!-- Rear Right Wheel -->
+            <body name="wheel_rr" pos="0.2 -0.2125 -.05">
+                <inertial pos="0 0 0" mass="1" diaginertia="0.01 0.01 0.01"/>
+                <joint name="joint_rr" type="hinge" axis="0 1 0"/>
+                <geom type="cylinder" size="0.1 0.025" euler="1.57 0 0" friction="2 0.1 0.1"/>
+            </body>
+
+        </body>
+
+    </worldbody>
+
+    <!-- Actuators (Differential Drive) -->
+    <actuator>
+        <!-- Left side -->
+        <motor joint="joint_fl" ctrlrange="-50 50" gear="1"/>
+        <motor joint="joint_rl" ctrlrange="-50 50" gear="1"/>
+
+        <!-- Right side -->
+        <motor joint="joint_fr" ctrlrange="-50 50" gear="1"/>
+        <motor joint="joint_rr" ctrlrange="-50 50" gear="1"/>
+    </actuator>
+
+</mujoco>
